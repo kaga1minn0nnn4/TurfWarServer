@@ -1,6 +1,6 @@
-import sys
 import socket
 import random
+import argparse
 
 def display_map(raw, x, y):
     fieldsize={'x':31, 'y':21}
@@ -110,20 +110,21 @@ def operate(client, mode="player"):
 
         client.send(cli_msg.encode())
 
-
 if __name__ == "__main__":
-    args = sys.argv[1:]
-    param = {
-        "mode": "player",
-        "server_ip": "127.0.0.1",
-        "server_port": 8000
-    }
-    param_keys = list(param.keys())
-    for i in range(len(args)):
-        param[param_keys[i]] = args[i]
+    parser = argparse.ArgumentParser(description="tcp client")
+    parser.add_argument("--mode")
+    parser.add_argument("--server_ip")
+    parser.add_argument("--server_port")
+    args = parser.parse_args()
 
-    if not (param["mode"] == "player" or param["mode"] == "npc"):
-        raise
+    param = {
+        "mode": args.mode or "player",
+        "server_ip": args.server_ip or "127.0.0.1",
+        "server_port": int(args.server_port or "8000")
+    }
+
+    if param["mode"] not in ["player", "npc"]:
+        raise ValueError
 
     buffer_size = 4096
 
