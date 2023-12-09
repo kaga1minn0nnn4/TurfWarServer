@@ -12,11 +12,17 @@ https://github.com/kaga1minn0nnn4/TurfWarServer/assets/35623953/b8d6f6f1-9876-4c
     # サーバー起動
     python3 main.py
 
+    # サーバー起動(IPとポート指定)
+    python3 main.py --server_ip 192.168.0.1 --server_port 8000
+
     # クライアント起動
     python3 client.py
 
     # NPCクライアント起動
-    python3 client_ai.py
+    python3 client.py --mode npc
+
+    # クライアント起動(サーバーIPとポート指定)
+    python3 client.py --server_ip 192.168.0.1 --server_port 8000
 
 一人で遊びたい人はclient.pyとclient_ai.pyを立ち上げると、NPC(全然強くない)と対戦できます。
 
@@ -37,4 +43,3 @@ w, a, s, dでマップ内の空白の部分を移動できます。\
 
 ## バグとか改善点とか
 - 片方のプレイヤーが切断したときにもう片方のプレイヤーにうまく通知されないので変なことになる。
-- ゲームを終了する処理を実装してないので永遠にゲームが終わらない。

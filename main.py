@@ -1,8 +1,8 @@
-import time
+import argparse
+
 from tcp_server import TcpServer
 from game_session import GameSession
 from turfwar_game import TurfWarGame
-from field_map import FieldMap
 
 gs = GameSession()
 games = []
@@ -29,26 +29,36 @@ def callback_accept(client, addr):
             print(f"Server -> Client(id={session_id}, p={player_num})")
 
             # Client -> Server
-            client_res_msg =  client.recv(256)            
-            print(f"Client(id={session_id}, p={player_num}) -> Server")     
+            client_res_msg =  client.recv(256)
+            print(f"Client(id={session_id}, p={player_num}) -> Server")
             is_close = not game.step(player_num, client_res_msg)
             game.wait_other_player()
-            
+
             if is_close:
                 print(f"This game is closed. id: ({session_id})")
                 break
-                
+
     except BrokenPipeError:
         print(f"Broken pipe id: ({session_id})")
         # gs.remove_from_id(session_id)
-    
+
     finally:
         print(f"Close client id: ({session_id})")
         client.close()
 
 
 def main():
-    tcp_server = TcpServer("127.0.0.1", 8000)
+    parser = argparse.ArgumentParser(description="tcp client")
+    parser.add_argument("--server_ip")
+    parser.add_argument("--server_port")
+    args = parser.parse_args()
+
+    param = {
+        "server_ip": args.server_ip or "127.0.0.1",
+        "server_port": int(args.server_port or "8000")
+    }
+
+    tcp_server = TcpServer(param["server_ip"], param["server_port"])
     tcp_server.register_callback(callback_accept)
 
     while True:
