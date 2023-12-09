@@ -23,7 +23,7 @@ class TurfWarGame:
         self.num_of_res = 0
         self.turn = 2
 
-        self.player_have_item = [0, 0]
+        self.player_have_item = [ItemTemplate(), ItemTemplate()]
 
         self.turn_limit = 100
 
@@ -39,7 +39,7 @@ class TurfWarGame:
 
         res.set_behavior(*can_behaviors)
         res.set_fieldmap(self.get_map())
-        res.set_having_item(self.player_have_item[id])
+        res.set_having_item(self.player_have_item[id].item_no)
         res.set_player_position(self.fm.get_user_position(str(id)))
 
         if self.turn > self.turn_limit:
@@ -60,16 +60,14 @@ class TurfWarGame:
 
         status = self.fm.paint_by_direction(str(p_id), move_dir, 0)
 
-        if use_item and self.player_have_item[p_id]:
-        # if use_item:
+        if use_item and (self.player_have_item[p_id].item_no != -1):
             # use item
-            item = ItemTemplate.create_random_item()
-            self.fm.paint_by_item(str(p_id), item)
-            self.player_have_item[p_id] = 0
+            self.fm.paint_by_item(str(p_id), self.player_have_item[p_id])
+            self.player_have_item[p_id] = ItemTemplate()
 
         if status == 1:
             # get item
-            self.player_have_item[p_id] = 1
+            self.player_have_item[p_id] = ItemTemplate.create_random_item()
 
         return True
 

@@ -2,6 +2,8 @@ import socket
 import random
 import argparse
 
+from items import ItemTemplate
+
 def display_map(raw, x, y):
     fieldsize={'x':31, 'y':21}
     for i in range(fieldsize["y"]):
@@ -47,6 +49,18 @@ def display_result(raw_map, x, y):
     else:
         print("..... YOU LOSE .....")
 
+def show_item(item_num):
+    if item_num == -1:
+        print("No item.")
+        return
+    print("Item effect: ")
+    item = ItemTemplate.item_from_num(item_num)
+    paint_area = item.paint_area
+    for row in paint_area:
+        for paint in row:
+            print("*" if paint else " ", end="")
+        print()
+
 def operate(client, mode="player"):
     while True:
         print("Wait other player...")
@@ -58,6 +72,8 @@ def operate(client, mode="player"):
         have_item = int(res_msgs[4])
         player_x = int(res_msgs[5])
         player_y = int(res_msgs[6])
+
+        show_item(have_item)
 
         is_end = int(res_msgs[7])
         if is_end:
@@ -91,7 +107,7 @@ def operate(client, mode="player"):
                     cli_msg = behavior_list[index] + ","
                     break
 
-        if have_item:
+        if have_item != -1:
             if mode == "player":
                 print("Use item ?")
                 flag = ""
