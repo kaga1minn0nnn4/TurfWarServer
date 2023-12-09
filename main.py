@@ -1,3 +1,5 @@
+import argparse
+
 from tcp_server import TcpServer
 from game_session import GameSession
 from turfwar_game import TurfWarGame
@@ -46,7 +48,17 @@ def callback_accept(client, addr):
 
 
 def main():
-    tcp_server = TcpServer("127.0.0.1", 8000)
+    parser = argparse.ArgumentParser(description="tcp client")
+    parser.add_argument("--server_ip")
+    parser.add_argument("--server_port")
+    args = parser.parse_args()
+
+    param = {
+        "server_ip": args.server_ip or "127.0.0.1",
+        "server_port": int(args.server_port or "8000")
+    }
+
+    tcp_server = TcpServer(param["server_ip"], param["server_port"])
     tcp_server.register_callback(callback_accept)
 
     while True:

@@ -25,7 +25,7 @@ class TurfWarGame:
 
         self.player_have_item = [0, 0]
 
-        self.turn_limit = 30
+        self.turn_limit = 100
 
     def get_map(self):
         return self.fm.get_map_sendable()
