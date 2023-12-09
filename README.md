@@ -24,8 +24,6 @@ https://github.com/kaga1minn0nnn4/TurfWarServer/assets/35623953/b8d6f6f1-9876-4c
     # クライアント起動(サーバーIPとポート指定)
     python3 client.py --server_ip 192.168.0.1 --server_port 8000
 
-一人で遊びたい人はclient.pyとclient_ai.pyを立ち上げると、NPC(全然強くない)と対戦できます。
-
 ## ルール
 プレイヤーはランダムで生成されたマップ内を動き回りながら、マップ内を塗りつぶして行きます。\
 最終的により多くの陣地を塗ったプレイヤーの勝利となります。
