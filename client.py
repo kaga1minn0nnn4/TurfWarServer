@@ -1,8 +1,19 @@
+import os
 import socket
 import random
 import argparse
 
+from items import ItemTemplate
+
+def print_div():
+    print()
+    print("-----------------------------------------------------")
+    print()
+
 def display_map(raw, x, y):
+    print_div()
+    print("Field Map")
+
     fieldsize={'x':31, 'y':21}
     for i in range(fieldsize["y"]):
         for j in range(fieldsize["x"] * 2):
@@ -31,8 +42,7 @@ def count_area(raw, x, y):
     return my_area, opponent_area
 
 def display_result(raw_map, x, y):
-    print()
-    print()
+    print_div()
     print("End of game!!!")
     my_area, opponent_area = count_area(raw_map, x, y)
 
@@ -47,8 +57,24 @@ def display_result(raw_map, x, y):
     else:
         print("..... YOU LOSE .....")
 
+    print_div()
+
+def show_item(item_num):
+    print_div()
+    if item_num == -1:
+        print("No item.")
+        return
+    print("Item effect(paint area by item): ")
+    item = ItemTemplate.item_from_num(item_num)
+    paint_area = item.paint_area
+    for row in paint_area:
+        for paint in row:
+            print(" *" if paint else "  ", end="")
+        print()
+
 def operate(client, mode="player"):
     while True:
+        os.system("clear")
         print("Wait other player...")
         response = client.recv(buffer_size).decode()
         res_msgs = response.split(",")
@@ -67,6 +93,8 @@ def operate(client, mode="player"):
             break
 
         display_map(map_raw, player_x, player_y)
+        show_item(have_item)
+        print_div()
 
         behavior_list = ["w", "a", "d", "s"]
         while True:
@@ -91,17 +119,17 @@ def operate(client, mode="player"):
                     cli_msg = behavior_list[index] + ","
                     break
 
-        if have_item:
+        if have_item != -1:
             if mode == "player":
                 print("Use item ?")
                 flag = ""
                 while True:
-                    flag = input("Select (0, 1) : ")
-                    if flag == "0" or flag == "1":
+                    flag = input("Yes: Press 'e' key, No: Press 'Enter' key : ")
+                    if flag in ["e", ""]:
                         break
                     else:
                         print("This input is unavailable...")
-                cli_msg += flag + ","
+                cli_msg += ("1" if flag == "e" else "0") + ","
             elif mode == "npc":
                 cli_msg += str(random.randint(0, 1)) + ","
         else:

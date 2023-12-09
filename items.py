@@ -12,6 +12,8 @@ class VerticalPaintItem(ItemTemplate):
             [0, 0, 1, 0, 0]
         ]
 
+        self.item_no = 0
+
 class HorizontalPaintItem(ItemTemplate):
     def __init__(self) -> None:
         super().__init__()
@@ -23,6 +25,8 @@ class HorizontalPaintItem(ItemTemplate):
             [0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0]
         ]
+
+        self.item_no = 1
 
 class DiagonalCrossPaintItem(ItemTemplate):
     def __init__(self) -> None:
@@ -36,6 +40,8 @@ class DiagonalCrossPaintItem(ItemTemplate):
             [1, 0, 0, 0, 1]
         ]
 
+        self.item_no = 2
+
 class CrossPaintItem(ItemTemplate):
     def __init__(self) -> None:
         super().__init__()
@@ -48,6 +54,8 @@ class CrossPaintItem(ItemTemplate):
             [0, 0, 1, 0, 0]
         ]
 
+        self.item_no = 3
+
 class SaikyoPaintItem(ItemTemplate):
     def __init__(self) -> None:
         super().__init__()
@@ -59,3 +67,5 @@ class SaikyoPaintItem(ItemTemplate):
             [1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1]
         ]
+
+        self.item_no = 4

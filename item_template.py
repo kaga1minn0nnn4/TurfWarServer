@@ -24,14 +24,28 @@ class ItemTemplate:
         return mask
 
     @classmethod
+    def item_from_num(cls, num):
+        item_types = [
+            items.VerticalPaintItem(),
+            items.HorizontalPaintItem(),
+            items.DiagonalCrossPaintItem(),
+            items.CrossPaintItem(),
+            items.SaikyoPaintItem()
+        ]
+        return item_types[num]
+
+    @classmethod
     def create_random_item(cls):
         random_value = random.random()
 
         probabilities = [0.3, 0.25, 0.2, 0.2, 0.05]
-        item_types = [ items.HorizontalPaintItem(), items.VerticalPaintItem(),
-                       items.DiagonalCrossPaintItem(), items.CrossPaintItem(),
-                       items.SaikyoPaintItem()
-                       ]
+        item_types = [
+            items.VerticalPaintItem(),
+            items.HorizontalPaintItem(),
+            items.DiagonalCrossPaintItem(),
+            items.CrossPaintItem(),
+            items.SaikyoPaintItem()
+        ]
 
         item: ItemTemplate = ItemTemplate()
 
