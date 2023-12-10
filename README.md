@@ -13,7 +13,7 @@ https://github.com/kaga1minn0nnn4/TurfWarServer/assets/35623953/b8d6f6f1-9876-4c
     python3 main.py
 
     # サーバー起動(IPとポート指定)
-    python3 main.py --server_ip 192.168.0.1 --server_port 8000
+    python3 main.py --server_port 8000
 
     # クライアント起動
     python3 client.py
@@ -24,7 +24,7 @@ https://github.com/kaga1minn0nnn4/TurfWarServer/assets/35623953/b8d6f6f1-9876-4c
     # クライアント起動(サーバーIPとポート指定)
     python3 client.py --server_ip 192.168.0.1 --server_port 8000
 
-一人で遊びたい人はclient.pyとclient_ai.pyを立ち上げると、NPC(全然強くない)と対戦できます。
+一人で遊びたい人はclient.pyとclient.pyのnpcモードを立ち上げると、NPC(全然強くない)と対戦できます。
 
 ## ルール
 プレイヤーはランダムで生成されたマップ内を動き回りながら、マップ内を塗りつぶして行きます。\
@@ -37,7 +37,7 @@ w, a, s, dでマップ内の空白の部分を移動できます。\
 
 ### アイテムについて
 - マップ内の?マークを踏むとアイテムが手に入ります。
-- アイテムを踏んだ次のターンからアイテムを使用するか聞かれるので、1を入力するとアイテムを使用します。
+- アイテムを踏んだ次のターンからアイテムを使用するか聞かれるので、eを入力するとアイテムを使用します。
 - アイテムの効果はランダムで、アイテムを取得したときに決定します。マリカみたいな感じです。
 - アイテムは1個まで保持できて、アイテムを持った状態で?マークを踏むと上書きされます。
 

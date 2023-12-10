@@ -2,10 +2,10 @@ import socket
 import threading
 
 class TcpServer:
-    def __init__(self, ip, port) -> None:
+    def __init__(self, port) -> None:
         self.tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.tcp_server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.tcp_server.bind((ip, port))
+        self.tcp_server.bind(("", port))
         self.tcp_server.listen()
 
         self.callback = None
